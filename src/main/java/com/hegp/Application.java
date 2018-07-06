@@ -1,12 +1,12 @@
-package com.hegp.nettystudy;
+package com.hegp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NettyStudyApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(NettyStudyApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }
