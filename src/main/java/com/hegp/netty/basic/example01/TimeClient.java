@@ -1,4 +1,4 @@
-package com.hegp.netty.basic;
+package com.hegp.netty.basic.example01;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -24,7 +24,6 @@ public class TimeClient {
                         ch.pipeline().addLast(new TimeClientHandler());
                     }
                 });
-
             // 发起异步连接操作
             ChannelFuture f = b.connect(host, port).sync();
             // 当代客户端链路关闭
@@ -36,6 +35,6 @@ public class TimeClient {
     }
 
     public static void main(String[] args) throws Exception {
-        new TimeClient().connect(8080, "127.0.0.1");
+        new TimeClient().connect(8080, "192.168.1.169");
     }
 }

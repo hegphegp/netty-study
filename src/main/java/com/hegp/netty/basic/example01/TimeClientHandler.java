@@ -1,4 +1,4 @@
-package com.hegp.netty.basic;
+package com.hegp.netty.basic.example01;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
