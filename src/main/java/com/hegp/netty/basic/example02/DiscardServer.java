@@ -53,8 +53,7 @@ public class DiscardServer {
             // sync()会同步等待连接操作结果，用户线程将在此wait()，直到连接操作完成之后，线程被notify(),用户代码继续执行
             // closeFuture()当Channel关闭时返回一个ChannelFuture,用于链路检测
             f.channel().closeFuture().sync();
-        } finally {
-            // 资源优雅释放
+        } finally { // 资源优雅释放
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
