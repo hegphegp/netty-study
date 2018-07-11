@@ -43,7 +43,7 @@ public class SocketServer {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
                                 .addLast("encoder", new MessageEncoder())
-                                .addLast("decoder", new MessageDecoder())
+                                .addLast("decoder", new MessageDecoder(1<<20, 10, 4))
                                 .addLast(new ServerHandler());
                         }
                     });
@@ -53,10 +53,6 @@ public class SocketServer {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        new SocketServer(8087).startup();
     }
 
 }

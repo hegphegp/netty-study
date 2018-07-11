@@ -24,7 +24,7 @@ public class SocketClient {
     private int serverPort;
     private Bootstrap bootstrap;
     private EventLoopGroup group;
-    private ChannelFuture channelFuture;
+    public ChannelFuture channelFuture;
 
     public SocketClient(String ip, int port) {
         this.ip = ip;
@@ -42,7 +42,7 @@ public class SocketClient {
                 protected void initChannel(SocketChannel ch) throws Exception {
                 ch.pipeline()
                     .addLast("encoder", new MessageEncoder())
-                    .addLast("decoder", new MessageDecoder())
+                    .addLast("decoder", new MessageDecoder(1<<20, 10, 4))
                     .addLast(new ClientHandler());
                 }
             });
