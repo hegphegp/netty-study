@@ -18,5 +18,13 @@ public class MessageEncoder extends MessageToByteEncoder<Message> {
         byte[] data = msg.getBody().getBytes(charset);
         out.writeInt(data.length);
         out.writeBytes(data);
+
+        /**
+         private byte magicType;
+         private byte type;//消息类型  0xAF 表示心跳包    0xBF 表示超时包  0xCF 业务信息包
+         private long requestId; //请求id
+         private int length;
+         private String body;
+         */
     }
 }
