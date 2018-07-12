@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.hegp.netty.basic.example03.client.handler.ClientHandler;
-import com.hegp.netty.basic.example03.common.decoder.MessageDecoder;
-import com.hegp.netty.basic.example03.common.encoder.MessageEncoder;
+import com.hegp.netty.basic.example03.common.codec.decoder.MessageDecoder;
+import com.hegp.netty.basic.example03.common.codec.encoder.MessageEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

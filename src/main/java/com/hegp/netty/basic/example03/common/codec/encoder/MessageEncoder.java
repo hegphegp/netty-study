@@ -1,4 +1,4 @@
-package com.hegp.netty.basic.example03.common.encoder;
+package com.hegp.netty.basic.example03.common.codec.encoder;
 
 import com.hegp.netty.basic.example03.common.domain.Message;
 import io.netty.buffer.ByteBuf;

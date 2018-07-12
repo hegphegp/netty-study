@@ -1,7 +1,7 @@
 package com.hegp.netty.basic.example03.server;
 
-import com.hegp.netty.basic.example03.common.decoder.MessageDecoder;
-import com.hegp.netty.basic.example03.common.encoder.MessageEncoder;
+import com.hegp.netty.basic.example03.common.codec.decoder.MessageDecoder;
+import com.hegp.netty.basic.example03.common.codec.encoder.MessageEncoder;
 import com.hegp.netty.basic.example03.server.handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -45,7 +45,7 @@ public class SocketServer {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
                           .addLast("encoder", new MessageEncoder())
-                          //  1<<20 是 32
+                          //  1<<20 是 1024*1024S
                           .addLast("decoder", new MessageDecoder(1<<20, 10, 4))
                           .addLast(new ServerHandler());
                     }
