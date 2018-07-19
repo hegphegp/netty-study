@@ -39,7 +39,8 @@ public class ServerHandler extends SimpleChannelInboundHandler<MessageEntity> {
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
         Channel incoming = ctx.channel();
         String body = "有客户端下线"+incoming.remoteAddress() + " channel_id :" + incoming.id();
-        MessageEntity msg = new MessageEntity((byte) 0XBF, 1, body);
+        int version = 1;
+        MessageEntity msg = new MessageEntity(version, (byte) 0XBF, 1, body);
         channels.writeAndFlush(msg);
     }
 
@@ -61,14 +62,16 @@ public class ServerHandler extends SimpleChannelInboundHandler<MessageEntity> {
     /** 每当从服务端读到客户端写入信息时，将信息转发给其他客户端的 Channel。其中如果你使用的是 Netty 5.x 版本时，需要把 channelRead0() 重命名为messageReceived() */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageEntity msg) throws Exception {
+
         System.out.println("服务器收到消息：" + msg.getBody());
         Channel incoming = ctx.channel();
-        MessageEntity resp = new MessageEntity(msg.getType(), msg.getRequestId(), "接受其他客户端发来的信息");
-        for (Channel channel : channels) {  //  遍历ChannelGroup中的channel
-            if (channel != incoming){       //  找到加入到ChannelGroup中的channel后，将录入的信息回写给除去发送信息的客户端
+        int version = 1;
+        MessageEntity resp = new MessageEntity(version, msg.getType(), msg.getRequestId(), "接受其他客户端发来的信息");
+        for (Channel channel : channels) {   //  遍历ChannelGroup中的channel
+            if (channel != incoming) {       //  找到加入到ChannelGroup中的channel后，将录入的信息回写给除去发送信息的客户端
                 channel.writeAndFlush(resp);
             }  else {
-                MessageEntity msg1 = new MessageEntity(msg.getType(), msg.getRequestId(), "开始向其他客户端转发你的消息");
+                MessageEntity msg1 = new MessageEntity(version, msg.getType(), msg.getRequestId(), "开始向其他客户端转发你的消息");
                 channel.writeAndFlush(msg1);
             }
         }

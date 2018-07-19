@@ -6,6 +6,8 @@ import java.util.Map;
 import com.hegp.netty.basic.example03.client.handler.ClientHandler;
 import com.hegp.netty.basic.example03.common.codec.decoder.MessageDecoder;
 import com.hegp.netty.basic.example03.common.codec.encoder.MessageEncoder;
+import com.hegp.netty.basic.example03.common.constant.Constants;
+import com.hegp.netty.basic.example03.common.domain.MessageEntity;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -18,7 +20,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 public class SocketClient {
 
     //存放NIO客户端实例对象
-    private static Map<String, SocketClient> map = new HashMap<String, SocketClient>();
+    private static Map<String, SocketClient> map = new HashMap();
 
     private String ip;
     private int serverPort;
@@ -43,7 +45,7 @@ public class SocketClient {
                 ch.pipeline()
                     .addLast("encoder", new MessageEncoder())
                     //  1<<20 是 1024*1024
-                    .addLast("decoder", new MessageDecoder(1<<20, 10, 4))
+                    .addLast("decoder", new MessageDecoder(Constants.MAX_MESSAGE_LENGTH, MessageEntity.HEADER_SIZE, 4))
                     .addLast(new ClientHandler());
                 }
             });
@@ -55,6 +57,7 @@ public class SocketClient {
                 || !channelFuture.channel().isWritable()
                 || obj == null)
             return;
+        System.out.println("client.writeAndFlush==>>>"+obj);
         channelFuture.channel().writeAndFlush(obj);
     }
 
