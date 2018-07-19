@@ -38,7 +38,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
         if (in == null)
             return null;
-        System.out.println("解码==========================================");
+
         if (in.readableBytes() <= MessageEntity.HEADER_SIZE)
             return null;
 
@@ -49,7 +49,6 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
         int requestId = in.readInt();
         byte isZip = in.readByte();
         int length = in.readInt();
-
 
         // FIXME 如果dataLength过大，可能导致问题
         if (in.readableBytes() < length) {

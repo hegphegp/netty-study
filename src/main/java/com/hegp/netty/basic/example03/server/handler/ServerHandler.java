@@ -62,7 +62,6 @@ public class ServerHandler extends SimpleChannelInboundHandler<MessageEntity> {
     /** 每当从服务端读到客户端写入信息时，将信息转发给其他客户端的 Channel。其中如果你使用的是 Netty 5.x 版本时，需要把 channelRead0() 重命名为messageReceived() */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageEntity msg) throws Exception {
-
         System.out.println("服务器收到消息：" + msg.getBody());
         Channel incoming = ctx.channel();
         int version = 1;

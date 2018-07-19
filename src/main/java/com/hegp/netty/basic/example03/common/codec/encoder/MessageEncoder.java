@@ -1,30 +1,30 @@
 package com.hegp.netty.basic.example03.common.codec.encoder;
 
+import com.hegp.netty.basic.example03.common.constant.Constants;
 import com.hegp.netty.basic.example03.common.domain.MessageEntity;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
-import java.nio.charset.Charset;
-
 public class MessageEncoder extends MessageToByteEncoder<MessageEntity> {
-    private final Charset charset = Charset.forName("utf-8");
 
     @Override
     protected void encode(ChannelHandlerContext ctx, MessageEntity msg, ByteBuf out) throws Exception {
-//        out.writeByte(msg.getMagicType());
-        out.writeByte(msg.getType());
-        out.writeLong(msg.getRequestId());
-        byte[] data = msg.getBody().getBytes(charset);
-        out.writeInt(data.length);
-        out.writeBytes(data);
-
         /**
-         private byte magicType;
-         private byte type;//消息类型  0xAF 表示心跳包    0xBF 表示超时包  0xCF 业务信息包
-         private long requestId; //请求id
+         private int version;    // 版本
+         private byte type;      // 消息类型  0xAF表示心跳包, 0xBF表示超时包, 0xCF业务信息包, 订下下的规矩是: 心跳包的内容长度为0
+         private int requestId;  // 请求id
+         private byte isZip;     // 是否压缩, 0表示不压缩, 1表示压缩
          private int length;
          private String body;
          */
+        out.writeInt(msg.getVersion());
+        out.writeByte(msg.getType());
+        out.writeInt(msg.getRequestId());
+        out.writeByte(msg.getIsZip());
+        out.writeInt(msg.getLength());
+        byte[] data = msg.getBody().getBytes(Constants.CHARSET);
+        out.writeInt(data.length);
+        out.writeBytes(data);
     }
 }
