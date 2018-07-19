@@ -2,29 +2,26 @@ package com.hegp.netty.basic.example03.common.domain;
 
 import java.nio.charset.Charset;
 
-public class Message {
+public class MessageEntity {
 
     private final Charset charset = Charset.forName("utf-8");
-
-    private byte magicType;
-    private byte type;//消息类型  0xAF 表示心跳包    0xBF 表示超时包  0xCF 业务信息包
-    private long requestId; //请求id
+    private byte type;      // 消息类型  0xAF表示心跳包, 0xBF表示超时包, 0xCF业务信息包
+    private int requestId; // 请求id
+    private byte isZip;     // 是否压缩
+    private byte priority;  // 消息优先级
     private int length;
     private String body;
 
-    public Message() {
-    }
+    public MessageEntity() { }
 
-    public Message(byte magicType, byte type, long requestId, byte[] data) {
-        this.magicType = magicType;
+    public MessageEntity(byte type, int requestId, byte[] data) {
         this.type = type;
         this.requestId = requestId;
         this.length = data.length;
         this.body = new String(data, charset);
     }
 
-    public Message(byte magicType, byte type, long requestId, String body) {
-        this.magicType = magicType;
+    public MessageEntity(byte type, int requestId, String body) {
         this.type = type;
         this.requestId = requestId;
         this.length = body.getBytes(charset).length;
@@ -35,14 +32,6 @@ public class Message {
         return charset;
     }
 
-    public byte getMagicType() {
-        return magicType;
-    }
-
-    public void setMagicType(byte magicType) {
-        this.magicType = magicType;
-    }
-
     public byte getType() {
         return type;
     }
@@ -51,12 +40,28 @@ public class Message {
         this.type = type;
     }
 
-    public long getRequestId() {
+    public int getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(long requestId) {
+    public void setRequestId(int requestId) {
         this.requestId = requestId;
+    }
+
+    public byte getIsZip() {
+        return isZip;
+    }
+
+    public void setIsZip(byte isZip) {
+        this.isZip = isZip;
+    }
+
+    public byte getPriority() {
+        return priority;
+    }
+
+    public void setPriority(byte priority) {
+        this.priority = priority;
     }
 
     public int getLength() {
@@ -77,9 +82,8 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "MessageEntity{" +
                 "charset=" + charset +
-                ", magicType=" + magicType +
                 ", type=" + type +
                 ", requestId=" + requestId +
                 ", length=" + length +

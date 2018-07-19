@@ -1,13 +1,13 @@
 package com.hegp.netty.basic.example03.client.handler;
 
-import com.hegp.netty.basic.example03.common.domain.Message;
+import com.hegp.netty.basic.example03.common.domain.MessageEntity;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class ClientHandler extends SimpleChannelInboundHandler<Message> {
+public class ClientHandler extends SimpleChannelInboundHandler<MessageEntity> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, MessageEntity msg) throws Exception {
         System.out.println("客户端收到消息：" + msg.getBody());
     }
 
