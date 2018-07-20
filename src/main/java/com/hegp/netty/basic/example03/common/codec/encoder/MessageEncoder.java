@@ -22,7 +22,7 @@ public class MessageEncoder extends MessageToByteEncoder<MessageEntity> {
         out.writeByte(msg.getType());
         out.writeInt(msg.getRequestId());
         out.writeByte(msg.getIsZip());
-        out.writeInt(msg.getLength());
+//        out.writeInt(msg.getLength());
         byte[] data = msg.getBody().getBytes(Constants.CHARSET);
         out.writeInt(data.length);
         out.writeBytes(data);

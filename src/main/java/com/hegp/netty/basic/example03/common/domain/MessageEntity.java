@@ -4,7 +4,7 @@ import com.hegp.netty.basic.example03.common.constant.Constants;
 
 public class MessageEntity {
 
-    // int + byte + int + byte + int = 4 + 1 + 4 + 1 + 4 = 14
+    // version+type+requestId+isZip=int+byte+int+byte+int=4+1+4+1+4=14
     public static final int HEADER_SIZE = 14;
 
     private int version;    // 版本
@@ -22,13 +22,13 @@ public class MessageEntity {
         this.requestId = requestId;
         this.isZip = 0;
         int length = body.getBytes(Constants.CHARSET).length;
-        if(Constants.MESSAGE_NOT_ZIP_MAX_LENGTH > 10000) {
+        if(Constants.MESSAGE_NOT_ZIP_MAX_LENGTH < length) {
             // 编码逻辑。。。。。。
             // body = 压缩后的body
             // isZip = 1
             // length = 编码后的长度
         }
-        this.length = length;
+//        this.length = length;
         this.body = body;
     }
 
