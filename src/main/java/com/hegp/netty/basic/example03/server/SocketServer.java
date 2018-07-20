@@ -47,8 +47,7 @@ public class SocketServer {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
                           .addLast("encoder", new MessageEncoder())
-                          //  1<<20 是 1024*1024
-                          .addLast("decoder", new MessageDecoder(Constants.MAX_MESSAGE_LENGTH, 14, 4))
+                          .addLast("decoder", new MessageDecoder(Constants.MAX_MESSAGE_LENGTH, MessageEntity.HEADER_SIZE, 4))
                           .addLast(new ServerHandler());
                     }
                 });

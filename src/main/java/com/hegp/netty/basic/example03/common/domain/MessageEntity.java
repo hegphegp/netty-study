@@ -4,7 +4,7 @@ import com.hegp.netty.basic.example03.common.constant.Constants;
 
 public class MessageEntity {
 
-    // version+type+requestId+isZip=int+byte+int+byte+int=4+1+4+1+4=14
+    // HEADER_SIZE = version+type+requestId+isZip=int+byte+int+byte+int=4+1+4+1+4=14
     public static final int HEADER_SIZE = 14;
 
     private int version;    // 版本
