@@ -47,6 +47,8 @@ public class SocketServer {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
                           .addLast("encoder", new MessageEncoder())
+                            // MessageDecoder继承了LengthFieldBasedFrameDecoder，父类除了maxFrameLength参数外，其他参数都是没意义的，因为乱填任意错误数字都没有抛错，所有数据包都可以正确读取
+                            // .addLast("decoder", new MessageDecoder(1<<20, 299, 4)) //是没任何问题的
                           .addLast("decoder", new MessageDecoder(Constants.MAX_MESSAGE_LENGTH, MessageEntity.HEADER_SIZE, 4))
                           .addLast(new ServerHandler());
                     }

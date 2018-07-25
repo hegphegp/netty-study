@@ -30,16 +30,14 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
      * LengthFieldBasedFrameDecoder(maxFrameLength, lengthFieldOffset, lengthFieldLength, 0, 0, true) 等同于
      * LengthFieldBasedFrameDecoder(ByteOrder.BIG_ENDIAN, maxFrameLength, lengthFieldOffset, lengthFieldLength, 0, 0, true)
      */
+
     public MessageDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength) {
         super(maxFrameLength, lengthFieldOffset, lengthFieldLength);
     }
 
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
-        if (in == null)
-            return null;
-
-        if (in.readableBytes() <= MessageEntity.HEADER_SIZE)
+        if (in == null || in.readableBytes() <= MessageEntity.HEADER_SIZE)
             return null;
 
         in.markReaderIndex();

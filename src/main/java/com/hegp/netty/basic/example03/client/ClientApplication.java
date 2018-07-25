@@ -10,7 +10,7 @@ public class ClientApplication {
         Thread.sleep(100);
         if(client.channelFuture.channel().isActive()){
             int version = 1;
-            for(int i=0; i<100; i++) {
+            for(int i=0; i<1000; i++) {
                 String body = "Hello world from client:"+ i;
                 MessageEntity msg = new MessageEntity(version, (byte) 0XBF, i, body);
                 client.write(msg);
