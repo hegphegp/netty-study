@@ -4,7 +4,7 @@ import com.hegp.netty.basic.example03.common.domain.MessageEntity;
 
 public class ClientApplication {
     public static void main(String[] args) throws InterruptedException {
-        SocketClient client = new SocketClient("192.168.1.169", 8877);
+        SocketClient client = new SocketClient("127.0.0.1", 8877);
         client.startup();
 
         Thread.sleep(100);

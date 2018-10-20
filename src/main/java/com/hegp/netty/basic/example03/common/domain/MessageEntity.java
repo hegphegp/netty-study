@@ -3,14 +3,17 @@ package com.hegp.netty.basic.example03.common.domain;
 import com.hegp.netty.basic.example03.common.constant.Constants;
 
 public class MessageEntity {
-
-    // HEADER_SIZE = version+type+requestId+isZip=int+byte+int+byte+int=4+1+4+1+4=14
+    // HEADER_SIZE = version + type + requestId + isZip = int + byte + int + byte + int = 4 + 1 + 4 + 1 + 4 = 14
     public static final int HEADER_SIZE = 14;
+
+    // LENGTH_FIELD_LENGTH = length = int = 4
+    public static final int LENGTH_FIELD_LENGTH=4;
 
     private int version;    // 版本
     private byte type;      // 消息类型  0xAF表示心跳包, 0xBF表示超时包, 0xCF业务信息包, 订下下的规矩是: 心跳包的内容长度为0
     private int requestId;  // 请求id
     private byte isZip;     // 是否压缩, 0表示不压缩, 1表示压缩
+
     private int length;
     private String body;
 
