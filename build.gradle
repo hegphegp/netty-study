@@ -28,7 +28,7 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter')
-    compile('io.netty:netty-all:4.1.25.Final')
+    compile('io.netty:netty-all:4.1.36.Final')
     compile('com.alibaba:fastjson:1.2.47')
     compile('junit:junit:4.12')
     testCompile('org.springframework.boot:spring-boot-starter-test')

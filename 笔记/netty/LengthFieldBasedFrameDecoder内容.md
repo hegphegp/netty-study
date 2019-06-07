@@ -39,7 +39,7 @@ public class MessageDecoder extends LengthFieldBasedFrameDecoder {
      * 参数 lengthAdjustment    修改帧数据长度字段中定义的值，可以为负数
      * 参数 initialBytesToStrip 解析的时候需要跳过的字节数
      * 参数 failFast            为true，当frame长度超过maxFrameLength时立即报TooLongFrameException异常，为false，读取完整个帧再报异常
-     * 参数 failFast       If true, a TooLongFrameException is thrown as soon as the decoder notices the length of the frame will exceed maxFrameLength
+     * 参数 failFast            If true, a TooLongFrameException is thrown as soon as the decoder notices the length of the frame will exceed maxFrameLength
      *            regardless of whether the entire frame has been read. If false, a TooLongFrameExceptionis thrown after the entire frame
      *            that exceeds maxFrameLength has been read
      *
