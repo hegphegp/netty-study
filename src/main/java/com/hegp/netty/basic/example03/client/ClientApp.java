@@ -2,7 +2,7 @@ package com.hegp.netty.basic.example03.client;
 
 import com.hegp.netty.basic.example03.client.handler.ClientBusinessHandler;
 import com.hegp.netty.basic.example03.common.encoder.MessageDecoder;
-import com.hegp.netty.basic.example03.common.entity.CustomMsg;
+import com.hegp.netty.basic.example03.common.entity.Message;
 import com.hegp.netty.basic.example03.common.encoder.MessageEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -41,8 +41,9 @@ public class ClientApp {
 
             while (currentCount > 0) {
                 Thread.sleep(10);
-                String msgBody = String.format("client %s", System.currentTimeMillis());
-                CustomMsg msgEntity = new CustomMsg((byte) 0xAB, (byte) 0xCD, msgBody.length(), msgBody);
+                String message = String.format("client %s", System.currentTimeMillis());
+                byte[] body = message.getBytes();
+                Message msgEntity = new Message((byte) 0xAB, (byte) 0xCD, body);
                 //发送数据
                 clientChannel.writeAndFlush(msgEntity);
                 //System.out.println(msgBody);

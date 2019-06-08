@@ -1,11 +1,11 @@
 package com.hegp.netty.basic.example03.client.handler;
 
-import com.hegp.netty.basic.example03.common.entity.CustomMsg;
+import com.hegp.netty.basic.example03.common.entity.Message;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
-public class ClientHandler extends SimpleChannelInboundHandler<CustomMsg> {
+public class ClientHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageEntity msg) throws Exception {
@@ -25,10 +25,10 @@ public class ClientHandler extends SimpleChannelInboundHandler<CustomMsg> {
 }
 */
 
-public class ClientBusinessHandler extends SimpleChannelInboundHandler<CustomMsg> {
+public class ClientBusinessHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, CustomMsg customMsg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Message customMsg) throws Exception {
         /** 接收到服务器的信息后，进行处理 */
 //        System.out.println(String.format("ip:%s %s", channelHandlerContext.channel().remoteAddress(), customMsg));
         System.out.println("接收到服务器的信息是"+customMsg);

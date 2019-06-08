@@ -1,12 +1,11 @@
 package com.hegp.netty.basic.example03.common.encoder;
 
-import com.hegp.netty.basic.example03.common.entity.CustomMsg;
+import com.hegp.netty.basic.example03.common.entity.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class MessageDecoder extends ChannelInboundHandlerAdapter {
-    private String encoding = "UTF-8";
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -17,7 +16,7 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         int len = buf.readableBytes();
         byte[] req = new byte[len];
         buf.readBytes(req);
-        String body = new String(req, encoding);
-        ctx.fireChannelRead(new CustomMsg(type, flag, length, body));
+        ctx.fireChannelRead(new Message(type, flag, req));
     }
+
 }

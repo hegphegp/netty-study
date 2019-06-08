@@ -1,6 +1,6 @@
 package com.hegp.netty.basic.example03.server.handler;
 
-import com.hegp.netty.basic.example03.common.entity.CustomMsg;
+import com.hegp.netty.basic.example03.common.entity.Message;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -88,7 +88,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<MessageEntity> {
     }
 }
 */
-public class ServerBusinessHandler extends SimpleChannelInboundHandler<CustomMsg> {
+public class ServerBusinessHandler extends SimpleChannelInboundHandler<Message> {
 
     public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
@@ -97,23 +97,23 @@ public class ServerBusinessHandler extends SimpleChannelInboundHandler<CustomMsg
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         System.out.println("有新客户端上线"+incoming.remoteAddress() + " channel_id :" + incoming.id());
-//        MessageEntity msg = new MessageEntity((byte) 0XAF, (byte) 0XBF, 1, body);
-//        channels.writeAndFlush(msg);
         //添加到channelGroup 通道组
         channels.add(ctx.channel());
     }
 
     /** 每当从服务端收到客户端断开时，客户端的 Channel 移除 ChannelGroup 列表中，并通知列表中的其他客户端 Channel */
     @Override
-    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
+    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         Channel incoming = ctx.channel();
         System.out.println("有客户端下线"+incoming.remoteAddress() + " channel_id :" + incoming.id());
         channels.remove(ctx.channel());
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, CustomMsg msg) throws Exception {
-        System.out.println("服务器接收到远程客户端" + ctx.channel().remoteAddress() + "信息是" + msg.getBody());
+    protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
+        String message = new String(msg.getBody(), "UTF-8");
+        System.out.println("服务器接收到远程客户端" + ctx.channel().remoteAddress() + "信息是" + message);
+
 //        System.out.println("进行业务处理");
 //        msg.setBody("你发来的信息已处理");
 //        处理完之后，给客户端发送信息
